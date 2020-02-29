@@ -56,12 +56,6 @@ if(iface=='registry')
 	}
 	else if(action=='show')
 	{
-		if(actargs[0]=='events')
-		{
-			_registry.events(actargs[1],net,(e)=>{
-				console.log(e)			
-			})		
-		}
 		if(actargs[0]=='focus')
 		{
 			_registry.focus(net,(err,f)=>{

@@ -1,0 +1,11 @@
+{
+	"pk":{
+		"kovanpk":"0xdef00a7856a4512231bc6dcecd646a0f9e4de3da80b75e896cf504b203eefb8a",
+		"pk":"0x3e670d8b4387ea0af06139a2b4a1fbe15020b1ce298558b8bc02404d4bf8e174"
+	},
+	"providers":{
+		"42":"https://kovan.infura.io/v3/e2b03beca7804292851732b821fe9b4a"
+		"5777":"http://localhost:7545"
+	}
+}
+
