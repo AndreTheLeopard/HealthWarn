@@ -86,14 +86,13 @@ contract Registry is Owned,GroupOwned,Child
 	
 	uint public severity_level;
 	
-	mapping(uint=>string) public longitude;
 	//mapping(uint=>)
 	uint public casecount;	
 	
 	mapping(uint=>address) public entities;
-
-	event NewCase(string indexed longitude,string indexed latitude,uint indexed time,bytes data,address et);
-	event RequestSupport(string indexed longitude,string indexed latitude,string  indexed asset,uint amount,address et);
+	
+	event NewCase(uint indexed longitude,uint indexed latitude,uint indexed time,bytes data,address et);
+	event RequestSupport(uint indexed longitude,uint indexed latitude,string  indexed asset,uint amount,address et);
 	event SeverityLevel(uint indexed level,address indexed et);
 	event Message(string indexed message,address indexed et);
 	event EntitySet(uint indexed ind,address indexed et);
@@ -102,33 +101,30 @@ contract Registry is Owned,GroupOwned,Child
 	{
 		owner=msg.sender;
 		groupmod('manage',owner,1);
-		groupmod('new',owner,1);
-		groupmod('request',owner,1);
-		groupmod('severity',owner,1);
-		groupmod('message',owner,1);
+		groupmod('sentinel',owner,1);
 	}
 
 	//only new
-	function newCase(string memory long,string memory lat,uint time,bytes memory data) public onlyGroup('new',1) returns(bool)
+	function newCase(uint long,uint lat,uint time,bytes memory data) public onlyGroup('sentinel',1) returns(bool)
 	{
 		emit NewCase(long,lat,time,data,msg.sender);
 		return true;
 	}
 
-	function requestSupport(string memory longitude,string memory latitude,string memory asset,uint amount) public onlyGroup('request',1) returns(bool)
+	function requestSupport(uint longitude,uint latitude,string memory asset,uint amount) public onlyGroup('sentinel',1) returns(bool)
 	{
 		emit RequestSupport(longitude,latitude,asset,amount,msg.sender);
 		return true;
 	}
 
-	function severityLevel(uint level) public onlyGroup('severity',1) returns(bool)
+	function severityLevel(uint level) public onlyGroup('sentinel',1) returns(bool)
 	{
 		severity_level=level;
 		emit SeverityLevel(level,msg.sender);
 		return true;
 	}
 
-	function message(string memory _msg) public onlyGroup('message',1) returns(bool)
+	function message(string memory _msg) public onlyGroup('sentinel',1) returns(bool)
 	{
 		emit Message(_msg,msg.sender);
 		return true;

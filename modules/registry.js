@@ -10,14 +10,19 @@ exports.events=async function(evt,network,cb)
 {
 	let web3=new Web3(providers[network])
 	c=contract('Registry',network)
-	let r=web3.eth.Contract(c.abi,c.address)
-	ev=await (()=>{
-			 r.methods.getPastEvents(evt,{},(err,e)=>{
+	let r=new web3.eth.Contract(c.abi,c.address)
+	r.getPastEvents(evt,{fromBlock:0},(err,e)=>{
+		if(err) throw err;
+		cb(e)		
+	})	
+	
+	/*ev=await (()=>{
+			 r.getPastEvents(evt,{},(err,e)=>{
 				if(err) return
 				return e;			 
 			 })
-	})
-	cb(ev)
+	})*/
+	//cb(ev)
 }
 
 exports.deploy=function(network,pk,cb)
@@ -39,10 +44,6 @@ exports.abi=function(net,cb)
 	cb(c.abi)
 }
 
-exports.events=function()
-{
-	
-}
 
 exports.setFocus=function(_focus,network,pk,cb)
 {

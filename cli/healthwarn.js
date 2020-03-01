@@ -7,7 +7,7 @@ var exports=module.exports={}
 args=process.argv.slice(2)
 
 const pk=require('./providers.json').pk.kovanpk
-const net='42'
+const net='4'
 
 iface=args[0]
 action=args[1]
@@ -19,7 +19,7 @@ if(iface=='registry')
 	{
 		_registry.newCase(actargs[0],actargs[1],actargs[2],actargs[3],net,pk,(err,th)=>{
 		//_registry.newCase(actargs[0],actargs[1],time.time(),actargs[2],net,pk,(err,th)=>{
-			if(err) throw err
+			if(err){throw err}
 			console.log(th)		
 		})
 	}
